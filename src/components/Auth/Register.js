@@ -38,8 +38,8 @@ const Register = () => {
 	return (
 		<Grid textAlign='center' verticalAlign='middle' className='app'>
 			<Grid.Column style={{ maxWidth: 450 }}>
-				<Header as='h2' icon color='orange' textAlign='center'>
-					<Icon name='puzzle piece' color='orange' />
+				<Header as='h2' icon color='red' textAlign='center'>
+					<Icon name='wechat' color='red' />
 					Register for rChat
 				</Header>
 				<Form onSubmit={handleSubmit} size='large'>
@@ -84,7 +84,7 @@ const Register = () => {
 							value={passwordConfirmation}
 							type='password'
 						/>
-						<Button color='orange' fluid size='large'>
+						<Button color='red' fluid size='large'>
 							Submit
 						</Button>
 					</Segment>
