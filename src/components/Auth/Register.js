@@ -12,6 +12,7 @@ import {
 import { Link } from 'react-router-dom';
 
 const Register = () => {
+	const [errors, setErrors] = useState({});
 	const [user, setUser] = useState({
 		username: '',
 		email: '',
@@ -20,19 +21,46 @@ const Register = () => {
 	});
 	const { username, email, password, passwordConfirmation } = user;
 
+	const isFormValid = () => {
+		let error;
+		if (isFormEmpty( user )) {
+			error = { message: 'Fill in all fields' };
+			setErrors({ error });
+			return false;
+		}
+		if (!isPasswordValid( user )) {
+			error = { message: 'Password is invalid' };
+			setErrors({ error });
+			return false;
+		}
+		console.log("VALID");
+		return true;
+	}
+
+	const isFormEmpty = ({ username, email, password, passwordConfirmation }) => {
+		return !username.length || !email.length || !password.length || !passwordConfirmation.length;
+	}
+
+	const isPasswordValid = ({ password, passwordConfirmation }) => {
+		console.log("password.length", password.length);
+		return password.length > 7 && password === passwordConfirmation;
+	}
+
 	const handleChange = event => {
 		setUser({ ...user, [event.target.name]: event.target.value });
 	};
 
 	const handleSubmit = event => {
-		event.preventDefault();
-		firebase
-			.auth()
-			.createUserWithEmailAndPassword(user.email, user.password)
-			.then(createdUser => {
-				console.log('createdUser', createdUser);
-			})
-			.catch(err => console.error(err));
+		if (isFormValid()) {
+			event.preventDefault();
+			firebase
+				.auth()
+				.createUserWithEmailAndPassword(user.email, user.password)
+				.then(createdUser => {
+					console.log('createdUser', createdUser);
+				})
+				.catch(err => console.error(err));
+		}
 	};
 
 	return (
