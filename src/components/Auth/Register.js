@@ -36,7 +36,6 @@ const Register = () => {
 			setErrors( [error] );
 			return false;
 		}
-		console.log("VALID");
 		return true;
 	}
 
@@ -45,7 +44,6 @@ const Register = () => {
 	}
 
 	const isPasswordValid = ({ password, passwordConfirmation }) => {
-		console.log("password.length", password.length);
 		return password.length > 7 && password === passwordConfirmation;
 	}
 
