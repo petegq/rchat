@@ -12,6 +12,7 @@ import {
 import { Link } from 'react-router-dom';
 
 const Register = () => {
+	const [loading, setLoading] = useState(false);
 	const [errors, setErrors] = useState([]);
 	const [user, setUser] = useState({
 		username: '',
@@ -51,15 +52,22 @@ const Register = () => {
 	};
 
 	const handleSubmit = event => {
-		if (isFormValid()) {
 			event.preventDefault();
+		if (isFormValid()) {
+			setErrors([]);
+			setLoading(true);
 			firebase
 				.auth()
 				.createUserWithEmailAndPassword(user.email, user.password)
 				.then(createdUser => {
 					console.log('createdUser', createdUser);
+					setLoading(false);
 				})
-				.catch(err => console.error(err));
+				.catch(err => {
+					console.error(err);
+					setErrors( [err] );
+					setLoading(false);
+				});
 		}
 	};
 
@@ -112,7 +120,7 @@ const Register = () => {
 							value={passwordConfirmation}
 							type='password'
 						/>
-						<Button color='red' fluid size='large'>
+						<Button disabled={loading} className={loading?'loading':''} color='red' fluid size='large'>
 							Submit
 						</Button>
 					</Segment>
