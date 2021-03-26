@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import firebase from '../../firebase';
+import md5 from 'md5';
 import {
 	Grid,
 	Form,
@@ -19,6 +20,7 @@ const Register = () => {
 		email: '',
 		password: '',
 		passwordConfirmation: '',
+		usersRef: firebase.firestore().collection('users')
 	});
 	const { username, email, password, passwordConfirmation } = user;
 
@@ -61,7 +63,19 @@ const Register = () => {
 				.createUserWithEmailAndPassword(user.email, user.password)
 				.then(createdUser => {
 					console.log('createdUser', createdUser);
-					setLoading(false);
+					createdUser.user.updateProfile({
+						displayName: username,
+						photoURL: `http://gravatar.com/avatar/${md5(createdUser.user.email)}?d=identicon`
+					}).then(() => {
+						saveUser(createdUser).then(() => {
+							console.log('user saved');
+						})
+						setLoading(false);
+					}).catch(err => {
+						console.error(err);
+						setErrors( [err] );
+						setLoading(false);
+					})
 				})
 				.catch(err => {
 					console.error(err);
@@ -70,6 +84,13 @@ const Register = () => {
 				});
 		}
 	};
+
+	const saveUser = createdUser => {
+		return user.usersRef.doc(createdUser.user.uid).set({
+			name: createdUser.user.displayName,
+			avatar: createdUser.user.photoURL,
+		})
+	}
 
 	const handleInputError = (errors, inputName) => {
 		return errors.some(error => error.message.toLowerCase().includes(inputName)) && 'error'
