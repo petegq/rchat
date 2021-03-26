@@ -71,6 +71,10 @@ const Register = () => {
 		}
 	};
 
+	const handleInputError = (errors, inputName) => {
+		return errors.some(error => error.message.toLowerCase().includes(inputName)) && 'error'
+	}
+
 	return (
 		<Grid textAlign='center' verticalAlign='middle' className='app'>
 			<Grid.Column style={{ maxWidth: 450 }}>
@@ -88,6 +92,7 @@ const Register = () => {
 							placeholder='Username'
 							onChange={handleChange}
 							value={username}
+							className={handleInputError(errors, 'username')}
 							type='text'
 						/>
 						<Form.Input
@@ -98,6 +103,7 @@ const Register = () => {
 							placeholder='you@gmail.com'
 							onChange={handleChange}
 							value={email}
+							className={handleInputError(errors, 'email')}
 							type='email'
 						/>
 						<Form.Input
@@ -108,6 +114,7 @@ const Register = () => {
 							placeholder='Password must be 8+ chars long'
 							onChange={handleChange}
 							value={password}
+							className={handleInputError(errors, 'password')}
 							type='password'
 						/>
 						<Form.Input
@@ -118,9 +125,10 @@ const Register = () => {
 							placeholder='Password Confirmation'
 							onChange={handleChange}
 							value={passwordConfirmation}
+							className={handleInputError(errors, 'password')}
 							type='password'
 						/>
-						<Button disabled={loading} className={loading?'loading':''} color='red' fluid size='large'>
+						<Button disabled={loading} className={loading && 'loading'} color='red' fluid size='large'>
 							Submit
 						</Button>
 					</Segment>
