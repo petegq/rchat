@@ -12,7 +12,7 @@ import {
 import { Link } from 'react-router-dom';
 
 const Register = () => {
-	const [errors, setErrors] = useState({});
+	const [errors, setErrors] = useState([]);
 	const [user, setUser] = useState({
 		username: '',
 		email: '',
@@ -25,12 +25,12 @@ const Register = () => {
 		let error;
 		if (isFormEmpty( user )) {
 			error = { message: 'Fill in all fields' };
-			setErrors({ error });
+			setErrors( [error] );
 			return false;
 		}
 		if (!isPasswordValid( user )) {
 			error = { message: 'Password is invalid' };
-			setErrors({ error });
+			setErrors( [error] );
 			return false;
 		}
 		console.log("VALID");
@@ -97,7 +97,7 @@ const Register = () => {
 							name='password'
 							icon='lock'
 							iconPosition='left'
-							placeholder='Password'
+							placeholder='Password must be 8+ chars long'
 							onChange={handleChange}
 							value={password}
 							type='password'
@@ -117,6 +117,11 @@ const Register = () => {
 						</Button>
 					</Segment>
 				</Form>
+				{errors.length > 0 && (
+					<Message error>
+						{errors.map((err, i) => <p key={i}>{err.message}</p>)}
+					</Message>
+				)}
 				<Message>
 					Already a user? <Link to='/login'>Login</Link>
 				</Message>
