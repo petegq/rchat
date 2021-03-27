@@ -24,7 +24,7 @@ const Login = () => {
 		setUser({ ...user, [event.target.name]: event.target.value });
 	};
 
-	const isFormValid = ({email, password}) => email && password;
+	const isFormValid = ({ email, password }) => email && password;
 
 	const handleSubmit = event => {
 		event.preventDefault();
@@ -35,19 +35,23 @@ const Login = () => {
 				.auth()
 				.signInWithEmailAndPassword(email, password)
 				.then(signedInUser => {
-					console.log("signedInUser", signedInUser);
+					console.log('signedInUser', signedInUser);
 					setLoading(false);
 				})
 				.catch(err => {
 					setErrors([err]);
 					setLoading(false);
-				})
+				});
 		}
 	};
 
 	const handleInputError = (errors, inputName) => {
-		return errors.some(error => error.message.toLowerCase().includes(inputName)) && 'error'
-	}
+		return (
+			errors.some(error =>
+				error.message.toLowerCase().includes(inputName),
+			) && 'error'
+		);
+	};
 
 	return (
 		<Grid textAlign='center' verticalAlign='middle' className='app'>
@@ -80,14 +84,21 @@ const Login = () => {
 							className={handleInputError(errors, 'password')}
 							type='password'
 						/>
-						<Button disabled={loading} className={loading && 'loading'} color='red' fluid size='large'>
+						<Button
+							disabled={loading}
+							className={loading && 'loading'}
+							color='red'
+							fluid
+							size='large'>
 							Submit
 						</Button>
 					</Segment>
 				</Form>
 				{errors.length > 0 && (
 					<Message error>
-						{errors.map((err, i) => <p key={i}>{err.message}</p>)}
+						{errors.map((err, i) => (
+							<p key={i}>{err.message}</p>
+						))}
 					</Message>
 				)}
 				<Message>

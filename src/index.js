@@ -8,11 +8,16 @@ import firebase from './firebase';
 
 import 'semantic-ui-css/semantic.min.css';
 
-import { BrowserRouter as Router, Switch, Route, withRouter } from 'react-router-dom';
+import {
+	BrowserRouter as Router,
+	Switch,
+	Route,
+	withRouter,
+} from 'react-router-dom';
 
-const Root = (props) => {
+const Root = props => {
 	firebase.auth().onAuthStateChanged(user => {
-		if (user) props.history.push('/')
+		if (user) props.history.push('/');
 	});
 
 	return (
@@ -21,7 +26,7 @@ const Root = (props) => {
 			<Route path='/login' component={Login} />
 			<Route path='/register' component={Register} />
 		</Switch>
-	)
+	);
 };
 
 const RootWithAuth = withRouter(Root);
@@ -29,5 +34,7 @@ const RootWithAuth = withRouter(Root);
 ReactDOM.render(
 	<Router>
 		<RootWithAuth />
-	</Router>, document.getElementById('root'));
+	</Router>,
+	document.getElementById('root'),
+);
 registerServiceWorker();
