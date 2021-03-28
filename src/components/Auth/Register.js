@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import firebase from '../../firebase';
+import {Firestore, Auth} from '../../firebase';
 import md5 from 'md5';
 import {
 	Grid,
@@ -20,7 +20,7 @@ const Register = () => {
 		email: '',
 		password: '',
 		passwordConfirmation: '',
-		usersRef: firebase.firestore().collection('users'),
+		usersRef: Firestore.collection('users'),
 	});
 	const { username, email, password, passwordConfirmation } = user;
 
@@ -66,8 +66,7 @@ const Register = () => {
 		if (isFormValid()) {
 			setErrors([]);
 			setLoading(true);
-			firebase
-				.auth()
+			Auth
 				.createUserWithEmailAndPassword(user.email, user.password)
 				.then(createdUser => {
 					console.log('createdUser', createdUser);

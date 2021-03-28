@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import firebase from '../../firebase';
+import { Auth } from '../../firebase';
 import {
 	Grid,
 	Form,
@@ -31,8 +31,7 @@ const Login = () => {
 		if (isFormValid(user)) {
 			setErrors([]);
 			setLoading(true);
-			firebase
-				.auth()
+			Auth
 				.signInWithEmailAndPassword(email, password)
 				.then(signedInUser => {
 					console.log('signedInUser', signedInUser);
@@ -86,7 +85,6 @@ const Login = () => {
 						/>
 						<Button
 							disabled={loading}
-							className={loading && 'loading'}
 							color='red'
 							fluid
 							size='large'>
