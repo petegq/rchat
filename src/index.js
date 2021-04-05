@@ -16,18 +16,22 @@ import {
 } from 'react-router-dom';
 
 import { createStore } from 'redux';
-import { Provider } from 'react-redux';
+import { Provider, connect } from 'react-redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import rootReducer from './reducers';
+import { setUser } from './actions';
 
 const store = createStore(rootReducer, composeWithDevTools());
 
-const Root = ({ history }) => {
+const Root = ({ history, setUser }) => {
 	useEffect(() => {
 		Auth.onAuthStateChanged(user => {
-			if (user) history.push('/');
+			if (user) {
+				setUser(user);
+				history.push('/');
+			}
 		});
-	});
+	}, [Auth, history, setUser]);
 
 	return (
 		<Switch>
@@ -38,7 +42,7 @@ const Root = ({ history }) => {
 	);
 };
 
-const RootWithAuth = withRouter(Root);
+const RootWithAuth = withRouter(connect(null, { setUser })(Root));
 
 ReactDOM.render(
 	<Provider store={store}>
