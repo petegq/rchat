@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import './App.css';
 import { Grid } from 'semantic-ui-react';
+import ColorPanel from './ColorPanel/ColorPanel';
 import SidePanel from './SidePanel/SidePanel';
+import Messages from './Messages/Messages';
+import InfoPanel from './InfoPanel/InfoPanel';
 
 import { Auth } from '../firebase';
 
@@ -16,8 +19,11 @@ const App = ({ history }) => {
 		<Grid
 			columns={'equal'}
 			className={'app'}
-			style={{ background: '#999' }}>
+			style={{ background: '#eee' }}>
+			<ColorPanel />
 			<SidePanel />
+			<Messages />
+			<InfoPanel />
 		</Grid>
 	);
 };
