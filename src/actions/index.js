@@ -4,7 +4,13 @@ export const setUser = user => {
 	return {
 		type: actionTypes.SET_USER,
 		payload: {
-			currentUser: user
-		}
-	}
-}
+			currentUser: user,
+		},
+	};
+};
+
+export const clearUser = user => {
+	return {
+		type: actionTypes.CLEAR_USER,
+	};
+};
