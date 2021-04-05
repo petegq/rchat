@@ -15,6 +15,12 @@ import {
 	withRouter,
 } from 'react-router-dom';
 
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
+
+const store = createStore(() => {}, composeWithDevTools());
+
 const Root = ({history}) => {
 	useEffect(() => {
 		Auth.onAuthStateChanged(user => {
@@ -34,9 +40,11 @@ const Root = ({history}) => {
 const RootWithAuth = withRouter(Root);
 
 ReactDOM.render(
-	<Router>
-		<RootWithAuth />
-	</Router>,
+	<Provider store={store}>
+		<Router>
+			<RootWithAuth />
+		</Router>
+	</Provider>,
 	document.getElementById('root'),
 );
 registerServiceWorker();
