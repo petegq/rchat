@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid, Header } from 'semantic-ui-react';
 
 const UserPanel = () => (
-	<Grid style={{ background: '#499' }}>
+	<Grid style={{ background: '#449' }}>
 		<Grid.Column>
 			<Grid.Row>
 				<Header></Header>
