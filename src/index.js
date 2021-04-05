@@ -8,6 +8,8 @@ import { Auth } from './firebase';
 
 import 'semantic-ui-css/semantic.min.css';
 
+import Spinner from './components/Spinner';
+
 import {
 	BrowserRouter as Router,
 	Switch,
@@ -23,8 +25,9 @@ import { setUser } from './actions';
 
 const store = createStore(rootReducer, composeWithDevTools());
 
-const Root = ({ history, setUser }) => {
+const Root = ({ history, setUser, isLoading }) => {
 	useEffect(() => {
+		console.log('isLoading', isLoading);
 		Auth.onAuthStateChanged(user => {
 			if (user) {
 				setUser(user);
@@ -33,7 +36,9 @@ const Root = ({ history, setUser }) => {
 		});
 	}, [Auth, history, setUser]);
 
-	return (
+	return isLoading ? (
+		<Spinner size={'huge'} content={'Preparing chat...'} />
+	) : (
 		<Switch>
 			<Route exact path='/' component={App} />
 			<Route path='/login' component={Login} />
@@ -42,7 +47,11 @@ const Root = ({ history, setUser }) => {
 	);
 };
 
-const RootWithAuth = withRouter(connect(null, { setUser })(Root));
+const mapStateToProps = state => ({
+	isLoading: state.user.isLoading,
+});
+
+const RootWithAuth = withRouter(connect(mapStateToProps, { setUser })(Root));
 
 ReactDOM.render(
 	<Provider store={store}>
