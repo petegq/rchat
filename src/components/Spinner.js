@@ -1,8 +1,10 @@
 import React from 'react';
-import { Loader } from 'semantic-ui-react';
+import { Dimmer, Loader } from 'semantic-ui-react';
 
 const Spinner = ({ size, content }) => (
-	<Loader size={size} content={content} active />
+	<Dimmer active>
+		<Loader size={size} content={content} />
+	</Dimmer>
 );
 
 export default Spinner;
