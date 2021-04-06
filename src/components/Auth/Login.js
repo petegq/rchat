@@ -31,8 +31,7 @@ const Login = () => {
 		if (isFormValid(user)) {
 			setErrors([]);
 			setLoading(true);
-			Auth
-				.signInWithEmailAndPassword(email, password)
+			Auth.signInWithEmailAndPassword(email, password)
 				.then(signedInUser => {
 					console.log('signedInUser', signedInUser);
 					setLoading(false);
@@ -56,7 +55,7 @@ const Login = () => {
 		<Grid textAlign='center' verticalAlign='middle' className='app'>
 			<Grid.Column style={{ maxWidth: 450 }}>
 				<Header as='h2' icon color='red' textAlign='center'>
-					<Icon name='wechat' color='red' />
+					<Icon name='code' color='red' />
 					Login to rChat
 				</Header>
 				<Form onSubmit={handleSubmit} size='large'>

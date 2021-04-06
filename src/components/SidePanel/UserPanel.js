@@ -28,11 +28,11 @@ const UserPanel = () => {
 	};
 
 	return (
-		<Grid style={{ background: '#499' }}>
+		<Grid style={{ background: '#449' }}>
 			<Grid.Column>
 				<Grid.Row style={{ margin: 0, padding: '1.2em' }}>
 					<Header inverted floated={'left'} as={'h2'}>
-						<Icon name={'wechat'} />
+						<Icon name={'code'} />
 						<Header.Content>rChat</Header.Content>
 					</Header>
 				</Grid.Row>

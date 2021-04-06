@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {Firestore, Auth} from '../../firebase';
+import { Firestore, Auth } from '../../firebase';
 import md5 from 'md5';
 import {
 	Grid,
@@ -66,8 +66,7 @@ const Register = () => {
 		if (isFormValid()) {
 			setErrors([]);
 			setLoading(true);
-			Auth
-				.createUserWithEmailAndPassword(user.email, user.password)
+			Auth.createUserWithEmailAndPassword(user.email, user.password)
 				.then(createdUser => {
 					console.log('createdUser', createdUser);
 					createdUser.user
@@ -116,7 +115,7 @@ const Register = () => {
 		<Grid textAlign='center' verticalAlign='middle' className='app'>
 			<Grid.Column style={{ maxWidth: 450 }}>
 				<Header as='h2' icon color='red' textAlign='center'>
-					<Icon name='wechat' color='red' />
+					<Icon name='code' color='red' />
 					Register for rChat
 				</Header>
 				<Form onSubmit={handleSubmit} size='large'>
