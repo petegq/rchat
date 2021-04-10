@@ -1,15 +1,22 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Dropdown, Grid, Header, Icon } from 'semantic-ui-react';
 import { Auth } from '../../firebase';
 import { connect } from 'react-redux';
 
 const UserPanel = ({ currentUser }) => {
+	const [user, setUser] = useState(null);
+
+	useEffect(() => {
+		!user && currentUser ? setUser(currentUser) : null;
+	});
+
 	const dropDownOptions = () => [
 		{
 			key: 'user',
 			text: (
 				<span>
-					Signed in as <strong>User</strong>
+					Signed in as{' '}
+					<strong>{user?.displayName || 'Unknown'}</strong>
 				</span>
 			),
 			disabled: true,
