@@ -1,8 +1,9 @@
 import React from 'react';
 import { Dropdown, Grid, Header, Icon } from 'semantic-ui-react';
 import { Auth } from '../../firebase';
+import { connect } from 'react-redux';
 
-const UserPanel = () => {
+const UserPanel = ({ currentUser }) => {
 	const dropDownOptions = () => [
 		{
 			key: 'user',
@@ -27,6 +28,8 @@ const UserPanel = () => {
 		return Auth.signOut().then(() => console.log('Signed out!'));
 	};
 
+	console.log('currentUser', currentUser);
+
 	return (
 		<Grid style={{ background: '#449' }}>
 			<Grid.Column>
@@ -47,4 +50,8 @@ const UserPanel = () => {
 	);
 };
 
-export default UserPanel;
+const mapStateToProps = state => ({
+	currentUser: state.user.currentUser,
+});
+
+export default connect(mapStateToProps)(UserPanel);
