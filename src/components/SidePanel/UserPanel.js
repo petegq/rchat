@@ -48,7 +48,7 @@ const UserPanel = ({ currentUser }) => {
 				</Grid.Row>
 				<Header>
 					<Dropdown
-						trigger={<span>User</span>}
+						trigger={<span>{user?.displayName}</span>}
 						options={dropDownOptions()}
 					/>
 				</Header>
@@ -57,8 +57,4 @@ const UserPanel = ({ currentUser }) => {
 	);
 };
 
-const mapStateToProps = state => ({
-	currentUser: state.user.currentUser,
-});
-
-export default connect(mapStateToProps)(UserPanel);
+export default UserPanel;
