@@ -51,7 +51,7 @@ const Channels = () => {
 					<Button color={'green'} inverted>
 						<Icon name={'checkmark'} /> Add
 					</Button>
-					<Button color={'red'} inverted>
+					<Button color={'red'} inverted onClick={closeModal}>
 						<Icon name={'remove'} /> Cancel
 					</Button>
 				</Modal.Actions>
