@@ -11,7 +11,7 @@ const SidePanel = ({ currentUser }) => (
 		vertical
 		style={{ background: '#449', fontSize: '1.2rem' }}>
 		<UserPanel currentUser={currentUser} />
-		<Channels />
+		<Channels currentUser={currentUser} />
 	</Menu>
 );
 

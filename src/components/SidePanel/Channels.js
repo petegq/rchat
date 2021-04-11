@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Firestore } from '../../firebase';
 import { Icon, Menu, Modal, Form, Input, Button } from 'semantic-ui-react';
 
-const Channels = () => {
+const Channels = ({ currentUser }) => {
 	const [channels, setChannels] = useState([]);
 	const [channel, setChannel] = useState({
 		name: '',
@@ -30,6 +30,31 @@ const Channels = () => {
 	};
 
 	const isFormValid = (name, details) => name && details;
+
+	const addChannel = () => {
+		const { channelsRef, name, details } = channel;
+
+		const id = channelsRef.push().key;
+
+		const newChannel = {
+			id,
+			name,
+			details,
+			createdBy: {
+				name: currentUser.displayName,
+			},
+		};
+
+		channelsRef
+			.child(id)
+			.update(newChannel)
+			.then(res => {
+				setChannel({ ...channel, name: '', details: '' });
+				setModal(false);
+				console.log('Channel Added', res);
+			})
+			.catch(err => console.log('ERR', err));
+	};
 
 	return (
 		<>
