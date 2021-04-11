@@ -8,15 +8,14 @@ const UserPanel = ({ currentUser }) => {
 
 	useEffect(() => {
 		!user && currentUser ? setUser(currentUser) : null;
-	});
+	}, [currentUser]);
 
 	const dropDownOptions = () => [
 		{
 			key: 'user',
 			text: (
 				<span>
-					Signed in as{' '}
-					<strong>{user?.displayName || 'Unknown'}</strong>
+					Signed in as <strong>{user?.displayName}</strong>
 				</span>
 			),
 			disabled: true,

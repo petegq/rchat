@@ -45,10 +45,10 @@ const Channels = ({ currentUser }) => {
 		channelsRef
 			.doc()
 			.set(newChannel)
-			.then(res => {
+			.then(() => {
 				setChannel({ ...channel, name: '', details: '' });
 				setModal(false);
-				console.log('Channel Added', res);
+				console.log('Channel Added');
 			})
 			.catch(err => console.log('ERR', err));
 	};
