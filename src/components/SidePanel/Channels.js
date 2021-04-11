@@ -1,17 +1,35 @@
 import React, { useState, useEffect } from 'react';
+import { Firestore } from '../../firebase';
 import { Icon, Menu, Modal, Form, Input, Button } from 'semantic-ui-react';
 
 const Channels = () => {
 	const [channels, setChannels] = useState([]);
-	const [channelName, setChannelName] = useState([]);
-	const [channelDetails, setChannelDetails] = useState([]);
+	const [channel, setChannel] = useState({
+		name: '',
+		details: '',
+		channelsRef: Firestore.collection('channels'),
+	});
 	const [modal, setModal] = useState(false);
 
 	const openModal = () => setModal(true);
 
 	const closeModal = () => setModal(false);
 
-	const handleChange = () => setModal(false);
+	const handleChange = event =>
+		setChannel({
+			...channel,
+			[event.target.name]: event.target.value,
+		});
+
+	const handleSubmit = event => {
+		event.preventDefault();
+		if (isFormValid(channel.name, channel.details)) {
+			console.log('channel added', channel);
+		}
+		setModal(false);
+	};
+
+	const isFormValid = (name, details) => name && details;
 
 	return (
 		<>
@@ -28,12 +46,12 @@ const Channels = () => {
 			<Modal basic open={modal} onClose={closeModal}>
 				<Modal.Header>Add Channel</Modal.Header>
 				<Modal.Content>
-					<Form>
+					<Form onSubmit={handleSubmit}>
 						<Form.Field>
 							<Input
 								fluid
 								label={'Name'}
-								name={'channelName'}
+								name={'name'}
 								onChange={handleChange}
 							/>
 						</Form.Field>
@@ -41,14 +59,14 @@ const Channels = () => {
 							<Input
 								fluid
 								label={'About'}
-								name={'channelDetails'}
+								name={'details'}
 								onChange={handleChange}
 							/>
 						</Form.Field>
 					</Form>
 				</Modal.Content>
 				<Modal.Actions>
-					<Button color={'green'} inverted>
+					<Button color={'green'} inverted onClick={handleSubmit}>
 						<Icon name={'checkmark'} /> Add
 					</Button>
 					<Button color={'red'} inverted onClick={closeModal}>
