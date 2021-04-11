@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Dropdown, Grid, Header, Icon } from 'semantic-ui-react';
+import { Dropdown, Grid, Header, Icon, Image } from 'semantic-ui-react';
 import { Auth } from '../../firebase';
 import { connect } from 'react-redux';
 
@@ -45,13 +45,23 @@ const UserPanel = ({ currentUser }) => {
 						<Icon name={'code'} />
 						<Header.Content>rChat</Header.Content>
 					</Header>
+
+					<Header>
+						<Dropdown
+							trigger={
+								<span>
+									<Image
+										src={user?.photoURL}
+										spaced={'right'}
+										avatar
+									/>{' '}
+									{user?.displayName}
+								</span>
+							}
+							options={dropDownOptions()}
+						/>
+					</Header>
 				</Grid.Row>
-				<Header>
-					<Dropdown
-						trigger={<span>{user?.displayName}</span>}
-						options={dropDownOptions()}
-					/>
-				</Header>
 			</Grid.Column>
 		</Grid>
 	);
