@@ -1,6 +1,7 @@
 import React from 'react';
 import { Menu } from 'semantic-ui-react';
 import UserPanel from './UserPanel';
+import Channels from './Channels';
 
 const SidePanel = ({ currentUser }) => (
 	<Menu
@@ -10,6 +11,7 @@ const SidePanel = ({ currentUser }) => (
 		vertical
 		style={{ background: '#449', fontSize: '1.2rem' }}>
 		<UserPanel currentUser={currentUser} />
+		<Channels />
 	</Menu>
 );
 
