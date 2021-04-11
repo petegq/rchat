@@ -41,7 +41,11 @@ const UserPanel = ({ currentUser }) => {
 		<Grid style={{ background: '#449' }}>
 			<Grid.Column>
 				<Grid.Row style={{ margin: 0, padding: '1.2em' }}>
-					<Header inverted floated={'left'} as={'h2'}>
+					<Header
+						inverted
+						floated={'left'}
+						as={'h2'}
+						style={{ paddingBottom: '0.5em' }}>
 						<Icon name={'code'} />
 						<Header.Content>rChat</Header.Content>
 					</Header>
