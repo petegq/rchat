@@ -66,7 +66,7 @@ const Register = () => {
 		if (isFormValid()) {
 			setErrors([]);
 			setLoading(true);
-			Auth.createUserWithEmailAndPassword(user.email, user.password)
+			Auth.createUserWithEmailAndPassword(email, password)
 				.then(createdUser => {
 					console.log('createdUser', createdUser);
 					createdUser.user
@@ -100,6 +100,7 @@ const Register = () => {
 		return user.usersRef.doc(createdUser.user.uid).set({
 			name: createdUser.user.displayName,
 			avatar: createdUser.user.photoURL,
+			email: createdUser.user.email,
 		});
 	};
 
