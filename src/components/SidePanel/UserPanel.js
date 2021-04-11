@@ -35,8 +35,6 @@ const UserPanel = ({ currentUser }) => {
 		return Auth.signOut().then(() => console.log('Signed out!'));
 	};
 
-	console.log('currentUser', currentUser);
-
 	return (
 		<Grid style={{ background: '#449' }}>
 			<Grid.Column>
