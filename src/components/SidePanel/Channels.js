@@ -24,7 +24,7 @@ const Channels = ({ currentUser }) => {
 	const handleSubmit = event => {
 		event.preventDefault();
 		if (isFormValid(channel.name, channel.details)) {
-			console.log('channel added', channel);
+			addChannel();
 		}
 		setModal(false);
 	};
@@ -34,10 +34,7 @@ const Channels = ({ currentUser }) => {
 	const addChannel = () => {
 		const { channelsRef, name, details } = channel;
 
-		const id = channelsRef.push().key;
-
 		const newChannel = {
-			id,
 			name,
 			details,
 			createdBy: {
@@ -46,8 +43,8 @@ const Channels = ({ currentUser }) => {
 		};
 
 		channelsRef
-			.child(id)
-			.update(newChannel)
+			.doc()
+			.set(newChannel)
 			.then(res => {
 				setChannel({ ...channel, name: '', details: '' });
 				setModal(false);
